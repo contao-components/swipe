@@ -86,6 +86,84 @@ function Swipe(container, options) {
 
   }
 
+  function onclick(el, fn) {
+
+    if (browser.addEventListener) el.addEventListener('click', fn, false);
+    else if (window.attachEvent) el.attachEvent('onclick', fn);
+
+  }
+
+  function stopEvent(e) {
+
+    e.returnValue = false; // IE < 9
+    e.preventDefault && e.preventDefault();
+
+  }
+
+  function menu() {
+
+    var childs = options.menu.childNodes;
+
+    for (var h=0; h<childs.length; h++) {
+
+      // previous button
+      if (childs[h].className && childs[h].className.indexOf('slider-prev') != -1) {
+        onclick(childs[h], function(e) {
+          stopEvent(e);
+          stop();
+          prev();
+        });
+      }
+
+      // next button
+      else if (childs[h].className && childs[h].className.indexOf('slider-next') != -1) {
+        onclick(childs[h], function(e) {
+          stopEvent(e);
+          stop();
+          next();
+        });
+      }
+
+      // dot navigation
+      else if (childs[h].className && childs[h].className.indexOf('slider-menu') != -1) {
+
+        // set the new menu reference, so we have it in updateMenu()
+        options.menu = childs[h];
+
+        for (var i=0; i<slides.length; i++) {
+
+          var b = document.createElement('b');
+          b.innerHTML = '•';
+          b.setAttribute('data-index', i);
+
+          if (i == index) b.className = 'active';
+
+          onclick(b, (function(b) {
+            return (function(e) {
+              stopEvent(e);
+              stop();
+              slide(parseInt((this.getAttribute ? this.getAttribute('data-index') : b.attributes['data-index'].nodeValue)));
+            });
+          })(b));
+
+          options.menu.appendChild(b);
+
+        }
+      }
+    }
+  }
+
+  function updateMenu() {
+
+    for (var i=0; i<slides.length; i++) {
+
+      var child = options.menu.children[i];
+      child.className = (parseInt(child.getAttribute ? child.getAttribute('data-index') : child.attributes['data-index'].nodeValue) == index) ? 'active' : '';
+
+    }
+
+  }
+
   function prev() {
 
     if (options.continuous) slide(index-1);
@@ -147,7 +225,12 @@ function Swipe(container, options) {
     }
 
     index = to;
+
+    // update the menu
+    if (options.menu) updateMenu();
+
     offloadFn(options.callback && options.callback(index, slides[index]));
+
   }
 
   function move(index, dist, speed) {
@@ -395,6 +478,9 @@ function Swipe(container, options) {
 
           }
 
+          // update the menu
+          if (options.menu) updateMenu();
+
           options.callback && options.callback(index, slides[index]);
 
         } else {
@@ -437,6 +523,9 @@ function Swipe(container, options) {
 
   // trigger setup
   setup();
+
+  // set up the menu
+  if (options.menu) menu();
 
   // start auto slideshow if applicable
   if (delay) begin();
@@ -556,15 +645,4 @@ function Swipe(container, options) {
     }
   }
 
-}
-
-
-if ( window.jQuery || window.Zepto ) {
-  (function($) {
-    $.fn.Swipe = function(params) {
-      return this.each(function() {
-        $(this).data('Swipe', new Swipe($(this)[0], params));
-      });
-    }
-  })( window.jQuery || window.Zepto )
 }
