@@ -130,7 +130,7 @@ function Swipe(container, options) {
         // set the new menu reference, so we have it in updateMenu()
         options.menu = childs[h];
 
-        for (var i=0; i<slides.length; i++) {
+        for (var i=0; i<length; i++) {
 
           var b = document.createElement('b');
           b.innerHTML = '•';
@@ -155,7 +155,7 @@ function Swipe(container, options) {
 
   function updateMenu() {
 
-    for (var i=0; i<slides.length; i++) {
+    for (var i=0; i<length; i++) {
 
       var child = options.menu.children[i];
       child.className = (parseInt(child.getAttribute ? child.getAttribute('data-index') : child.attributes['data-index'].nodeValue) == index) ? 'active' : '';
