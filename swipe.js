@@ -139,7 +139,7 @@ function Swipe(container, options) {
           b.innerHTML = '•';
           b.setAttribute('data-index', i);
 
-          if (i == index) b.className = 'active';
+          if (i == position) b.className = 'active';
 
           onclick(b, (function(b) {
             return (function(e) {
@@ -161,7 +161,7 @@ function Swipe(container, options) {
     for (var i=0; i<length; i++) {
 
       var child = options.menu.children[i];
-      child.className = (parseInt(child.getAttribute ? child.getAttribute('data-index') : child.attributes['data-index'].nodeValue) == index) ? 'active' : '';
+      child.className = (parseInt(child.getAttribute ? child.getAttribute('data-index') : child.attributes['data-index'].nodeValue) == position) ? 'active' : '';
 
     }
 
@@ -228,11 +228,11 @@ function Swipe(container, options) {
     }
 
     index = to;
+    position = clonedSlides ? (index % 2) : index;
 
     // update the menu
     if (options.menu) updateMenu();
 
-    position = clonedSlides ? (index % 2) : index;
     offloadFn(options.callback && options.callback(position, slides[index]));
 
   }
@@ -482,10 +482,11 @@ function Swipe(container, options) {
 
           }
 
+          position = clonedSlides ? (index % 2) : index;
+
           // update the menu
           if (options.menu) updateMenu();
 
-          position = clonedSlides ? (index % 2) : index;
           options.callback && options.callback(position, slides[index]);
 
         } else {
