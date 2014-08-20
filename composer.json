@@ -1,5 +1,5 @@
 {
-    "name": "leofeyer/swipe",
+    "name": "contao-components/swipe",
     "type": "component",
     "description": "A JavaScript touch slider with dot menu",
     "license": "MIT",
