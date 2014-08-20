@@ -1,9 +1,11 @@
-/*
+/**
  * Swipe 2.0
  *
  * Brad Birdsall
  * Copyright 2013, MIT License
  *
+ * Dot menu enhancements
+ * Copyright (c) 2013-2014 Leo Feyer
  */
 
 function Swipe(container, options) {
