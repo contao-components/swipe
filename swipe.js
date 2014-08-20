@@ -457,7 +457,7 @@ function Swipe(container, options) {
       }
 
     },
-    end: function(event) {
+    end: function() {
 
       // measure duration
       var duration = +new Date - start.time;
