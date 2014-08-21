@@ -19,12 +19,6 @@
             ],
             "styles": [
                 "css/swipe.min.css"
-            ],
-            "files": [
-                "js/swipe.js",
-                "js/swipe.min.js",
-                "css/swipe.css",
-                "css/swipe.min.css"
             ]
         }
     }
