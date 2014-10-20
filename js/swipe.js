@@ -43,6 +43,15 @@ function Swipe(container, options) {
 
     // cache slides
     slides = element.children;
+
+    // filter comments (IE8)
+    for (var i=0; i<slides.length; i++) {
+      if (slides[i].nodeType == 8) {
+        element.removeChild(slides[i]);
+        --i;
+      }
+    }
+
     length = slides.length;
 
     // set continuous to false if only one slide
@@ -66,7 +75,7 @@ function Swipe(container, options) {
 
     // stack elements
     var pos = slides.length;
-    while(pos--) {
+    while (pos--) {
 
       var slide = slides[pos];
 
@@ -559,7 +568,7 @@ function Swipe(container, options) {
 
     }
 
-  }
+  };
 
   // trigger setup
   setup();
