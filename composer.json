@@ -1,6 +1,6 @@
 {
     "name": "contao-components/swipe",
-    "type": "component",
+    "type": "contao-component",
     "description": "A JavaScript touch slider with dot menu",
     "license": "MIT",
     "authors": [
@@ -10,16 +10,6 @@
         }
     ],
     "require": {
-        "robloach/component-installer": "~0.0"
-    },
-    "extra": {
-        "component": {
-            "scripts": [
-                "js/swipe.min.js"
-            ],
-            "styles": [
-                "css/swipe.min.css"
-            ]
-        }
+        "contao-components/installer": "~1.0"
     }
 }
