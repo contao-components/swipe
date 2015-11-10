@@ -163,7 +163,7 @@ function Swipe(container, options) {
 
           var b = document.createElement('b');
           b.innerHTML = '•';
-          b.setAttribute('data-index', i);
+          b.setAttribute('data-index', i.toString());
 
           if (i == position) b.className = 'active';
 
