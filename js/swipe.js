@@ -698,3 +698,10 @@ function Swipe(container, options) {
   }
 
 }
+
+if (typeof exports !== 'undefined') {
+  if (typeof module !== 'undefined' && module.exports) {
+    exports = module.exports = Swipe;
+  }
+  exports.Swipe = Swipe;
+}
