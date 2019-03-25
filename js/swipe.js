@@ -189,7 +189,7 @@ function Swipe(container, options) {
 
   function updateMenu() {
 
-    for (var i=0; i<length; i++) {
+    for (var i=0; i<nodes.dots.children.length; i++) {
 
       var child = nodes.dots.children[i];
       child.className = (parseInt(child.getAttribute ? child.getAttribute('data-index') : child.attributes['data-index'].nodeValue) == position) ? 'active' : '';
@@ -203,7 +203,7 @@ function Swipe(container, options) {
     var childs = nodes.dots.childNodes;
 
     while (childs.length > 0) {
-	    nodes.dots.removeChild(childs[0]);
+        nodes.dots.removeChild(childs[0]);
     }
 
     removeEvent(nodes.prev, 'click', listeners.prev);
