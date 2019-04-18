@@ -345,12 +345,15 @@ function Swipe(container, options) {
 
   // setup auto slideshow
   var delay = options.auto || 0;
-  var interval;
+  var interval = null;
 
   function begin() {
 
-    if (interval != null) clearTimeout(interval);
-    interval = setTimeout(next, delay);
+    if (interval !== null) clearTimeout(interval);
+    interval = setTimeout(function() {
+      interval = null;
+      next();
+    }, delay);
 
   }
 
