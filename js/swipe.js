@@ -350,9 +350,12 @@ function Swipe(container, options) {
   function begin() {
 
     if (interval !== null) clearTimeout(interval);
+
     interval = setTimeout(function() {
+
       interval = null;
       next();
+
     }, delay);
 
   }
