@@ -124,64 +124,62 @@ function Swipe(container, options) {
 
   function menu() {
 
-    var childs = options.menu.childNodes;
+    var sliderPrev = options.menu.querySelector('.slider-prev');
+    var sliderNext = options.menu.querySelector('.slider-next');
+    var sliderMenu = options.menu.querySelector('.slider-menu');
 
-    for (var h=0; h<childs.length; h++) {
+    // previous button
+    if (sliderPrev) {
 
-      // previous button
-      if (childs[h].className && childs[h].className.indexOf('slider-prev') != -1) {
+      listeners.prev = function(e) {
+        stopEvent(e);
+        stop();
+        prev();
+      };
 
-        listeners.prev = function(e) {
-          stopEvent(e);
-          stop();
-          prev();
-        };
+      nodes.prev = sliderPrev;
+      addEvent(nodes.prev, 'click', listeners.prev);
 
-        nodes.prev = childs[h];
-        addEvent(nodes.prev, 'click', listeners.prev);
+    }
 
-      }
+    // next button
+    if (sliderNext) {
 
-      // next button
-      else if (childs[h].className && childs[h].className.indexOf('slider-next') != -1) {
+      listeners.next = function(e) {
+        stopEvent(e);
+        stop();
+        next();
+      };
 
-        listeners.next = function(e) {
-          stopEvent(e);
-          stop();
-          next();
-        };
+      nodes.next = sliderNext;
+      addEvent(nodes.next, 'click', listeners.next);
 
-        nodes.next = childs[h];
-        addEvent(nodes.next, 'click', listeners.next);
+    }
 
-      }
+    // dot navigation
+    if (sliderMenu) {
 
-      // dot navigation
-      else if (childs[h].className && childs[h].className.indexOf('slider-menu') != -1) {
+      for (var i=0; i<length; i++) {
 
-        for (var i=0; i<length; i++) {
+        var b = document.createElement('b');
+        b.innerHTML = '•';
+        b.setAttribute('data-index', i.toString());
 
-          var b = document.createElement('b');
-          b.innerHTML = '•';
-          b.setAttribute('data-index', i.toString());
+        if (i == position) b.className = 'active';
 
-          if (i == position) b.className = 'active';
+        addEvent(b, 'click', (function(b) {
+          return (function(e) {
+            stopEvent(e);
+            stop();
+            slide(parseInt((this.getAttribute ? this.getAttribute('data-index') : b.attributes['data-index'].nodeValue)));
+          });
+        })(b));
 
-          addEvent(b, 'click', (function(b) {
-            return (function(e) {
-              stopEvent(e);
-              stop();
-              slide(parseInt((this.getAttribute ? this.getAttribute('data-index') : b.attributes['data-index'].nodeValue)));
-            });
-          })(b));
-
-          childs[h].appendChild(b);
-
-        }
-
-        nodes.dots = childs[h];
+        sliderMenu.appendChild(b);
 
       }
+
+      nodes.dots = sliderMenu;
 
     }
 
