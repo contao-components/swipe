@@ -223,6 +223,18 @@ function Swipe(container, options) {
 
   }
 
+  function updateStateClasses() {
+
+    container.classList.toggle('slider-start', index === 0);
+    container.classList.toggle('slider-end', index === slides.length-1);
+
+    if (options.menu) {
+      options.menu.classList.toggle('slider-start', index === 0);
+      options.menu.classList.toggle('slider-end', index === slides.length-1);
+    }
+
+  }
+
   function circle(index) {
 
     // a simple positive modulo using slides.length
@@ -274,6 +286,8 @@ function Swipe(container, options) {
 
     // update the menu
     if (options.menu) updateMenu();
+
+    updateStateClasses();
 
     offloadFn(options.callback && options.callback(position, slides[index]));
 
@@ -580,6 +594,8 @@ function Swipe(container, options) {
 
   // set up the menu
   if (options.menu) menu();
+
+  updateStateClasses();
 
   // start auto slideshow if applicable
   if (delay) begin();
